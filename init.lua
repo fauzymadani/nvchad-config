@@ -48,9 +48,9 @@ end)
 
 -- Format saat menyimpan file
 vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = { "*.js", "*.jsx", "*.ts", "*.tsx", "*.html", "*.css", "*.php", "*.blade.php", "*.lua" },
+  pattern = { "*.js", "*.jsx", "*.ts", "*.tsx", "*.html", "*.css", "*.php", "*.blade.php", "*.lua", "*.c" },
   callback = function()
-    vim.lsp.buf.format()     -- Menggunakan format() sebagai pengganti formatting_sync
+    vim.lsp.buf.format() -- Menggunakan format() sebagai pengganti formatting_sync
   end,
 })
 
@@ -59,7 +59,7 @@ local lspconfig = require("lspconfig")
 
 lspconfig.stimulus_ls.setup({
   cmd = { "stimulus-language-server", "--stdio" },
-  filetypes = { "blade" },   -- hanya untuk file blade
+  filetypes = { "blade" }, -- hanya untuk file blade
   root_dir = lspconfig.util.root_pattern("package.json", ".git"),
   settings = {},
 })

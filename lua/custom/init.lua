@@ -1,6 +1,5 @@
 vim.filetype.add({
-    pattern = {
-        [".*%.blade%.php"] = "blade",
-    },
+  pattern = {
+    [".*%.blade%.php"] = "blade",
+  },
 })
-
