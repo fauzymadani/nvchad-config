@@ -1,9 +1,42 @@
-**This repo is supposed to used as config by NvChad users!**
+### Nvchad config
+this is my personal config for neovim with Nvchad
 
-- The main nvchad repo (NvChad/NvChad) is used as a plugin by this repo.
-- So you just import its modules , like `require "nvchad.options" , require "nvchad.mappings"`
-- So you can delete the .git from this repo ( when you clone it locally ) or fork it :)
+## Requirements
+- nerd font
+- ripgrep
+- some basic knowledge of lua
+- Neovim 0.10
 
-# Credits
+## Installation
+make a backup of your neovim config.
+```bash
+mv ~/.config/nvim ~/.config/nvim_backup
+```
 
-1) Lazyvim starter https://github.com/LazyVim/starter as nvchad's starter was inspired by Lazyvim's . It made a lot of things easier!
+clone this repo
+```bash
+git clone https://github.com/fauzymadani/nvchad-config.git ~/.config/nvim
+```
+
+## preview
+![nvchad](https://github.com/user-attachments/assets/7ad45deb-96ca-455c-b89b-80600e639477)
+
+## Features
+- Support laravel development
+- laravel lsp
+- blade syntax highlighting
+- equipped with Nvchad menu, <a href="https://github.com/NvChad/menu">see here</a>
+- color picker
+- auto formatting / format on save
+- clangd lsp for C development
+
+## Post-install guide
+`cd ~/.config/nvim`, run `nvim` after cloning. inside neovim, run this in the command mode (remove ':')
+```bash
+:TSInstall php blade html
+```
+for Lsp:
+```bash
+:MasonInstallAll
+```
+and `Mason` and press Ctrl-f for install the specific lsp, the required lsp is `stimulus-language-server`, `cssls`, ``.
