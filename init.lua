@@ -12,6 +12,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local lazy_config = require "configs.lazy"
+vim.opt.termguicolors = true
 
 -- load plugins
 require("lazy").setup({
@@ -31,7 +32,8 @@ dofile(vim.g.base46_cache .. "statusline")
 
 require "options"
 require "nvchad.autocmds"
-require("custom.configs.alpha")
+--require("custom.configs.alpha")
+
 local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
 parser_config.blade = {
   install_info = {
