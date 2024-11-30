@@ -33,6 +33,13 @@ dofile(vim.g.base46_cache .. "statusline")
 require "options"
 require "nvchad.autocmds"
 --require("custom.configs.alpha")
+require("neo-tree").setup({
+  source_selector = {
+    winbar = true,
+    --remove comment to activate status bar
+    --statusline = true
+  }
+})
 
 local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
 parser_config.blade = {
@@ -65,3 +72,61 @@ lspconfig.stimulus_ls.setup({
   root_dir = lspconfig.util.root_pattern("package.json", ".git"),
   settings = {},
 })
+
+--function to get active lsp name:
+local function get_active_lsp()
+  local clients = vim.lsp.get_active_clients({ bufnr = 0 })
+  if next(clients) == nil then
+    --return something if no lsp detected
+    return "No LSP"
+  end
+  local client_names = {}
+  for _, client in pairs(clients) do
+    table.insert(client_names, client.name)
+  end
+  return table.concat(client_names, ", ")
+end
+
+
+-- lualine
+require('lualine').setup {
+  options = {
+    icons_enabled = true,
+    theme = 'auto',
+    component_separators = { left = '|', right = '|' },
+    section_separators = { left = '', right = '' },
+    disabled_filetypes = {
+      statusline = {},
+      winbar = {},
+    },
+    ignore_focus = {},
+    always_divide_middle = true,
+    always_show_tabline = true,
+    globalstatus = false,
+    refresh = {
+      statusline = 100,
+      tabline = 100,
+      winbar = 100,
+    }
+  },
+  sections = {
+    lualine_a = { 'mode' },
+    lualine_b = { 'branch', 'diff', 'diagnostics' },
+    lualine_c = { 'filename' },
+    lualine_x = { 'encoding', 'fileformat', 'filetype', get_active_lsp },
+    lualine_y = { 'progress' },
+    lualine_z = { 'location' }
+  },
+  inactive_sections = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = { 'filename' },
+    lualine_x = { 'location' },
+    lualine_y = {},
+    lualine_z = {}
+  },
+  tabline = {},
+  winbar = {},
+  inactive_winbar = {},
+  extensions = {}
+}
