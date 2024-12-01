@@ -32,6 +32,7 @@ dofile(vim.g.base46_cache .. "statusline")
 
 require "options"
 require "nvchad.autocmds"
+
 --require("custom.configs.alpha")
 require("neo-tree").setup({
   source_selector = {
@@ -87,46 +88,79 @@ local function get_active_lsp()
   return table.concat(client_names, ", ")
 end
 
+local navic = require('nvim-navic')
+local function on_attach(client, bufnr)
+  if client.server_capabilities.documentSymbolProvider then
+    navic.attach(client, bufnr)
+  end
+end
+vim.o.winbar = " %{%v:lua.vim.fn.expand('%F')%}  %{%v:lua.require'nvim-navic'.get_location()%}"
 
 -- lualine
-require('lualine').setup {
-  options = {
-    icons_enabled = true,
-    theme = 'auto',
-    component_separators = { left = '|', right = '|' },
-    section_separators = { left = '', right = '' },
-    disabled_filetypes = {
-      statusline = {},
-      winbar = {},
-    },
-    ignore_focus = {},
-    always_divide_middle = true,
-    always_show_tabline = true,
-    globalstatus = false,
-    refresh = {
-      statusline = 100,
-      tabline = 100,
-      winbar = 100,
-    }
-  },
-  sections = {
-    lualine_a = { 'mode' },
-    lualine_b = { 'branch', 'diff', 'diagnostics' },
-    lualine_c = { 'filename' },
-    lualine_x = { 'encoding', 'fileformat', 'filetype', get_active_lsp },
-    lualine_y = { 'progress' },
-    lualine_z = { 'location' }
-  },
-  inactive_sections = {
-    lualine_a = {},
-    lualine_b = {},
-    lualine_c = { 'filename' },
-    lualine_x = { 'location' },
-    lualine_y = {},
-    lualine_z = {}
-  },
-  tabline = {},
-  winbar = {},
-  inactive_winbar = {},
-  extensions = {}
+require("custom.configs.lualine")
+--require("custom.configs.lualine-gaps")
+
+
+--require('lualine').setup {
+--  options = {
+--    icons_enabled = true,
+--    theme = 'auto',
+--    component_separators = { left = '|', right = '|' },
+--    section_separators = { left = '', right = '' },
+--    disabled_filetypes = {
+--      statusline = {},
+--      winbar = {},
+--    },
+--    ignore_focus = {},
+--    always_divide_middle = true,
+--    always_show_tabline = true,
+--    globalstatus = false,
+--    refresh = {
+--    statusline = 100,
+--      tabline = 100,
+--      winbar = 100,
+--    }
+--  },
+--  sections = {
+--    lualine_a = { 'mode' },
+--    lualine_b = { 'branch', 'diff', 'diagnostics' },
+--   lualine_c = { 'filename' },
+--   lualine_x = { 'encoding', 'fileformat', 'filetype', get_active_lsp },
+--   lualine_y = { 'progress' },
+--   lualine_z = { 'location' }
+-- },
+-- inactive_sections = {
+--   lualine_a = {},
+--   lualine_b = {},
+--   lualine_c = { 'filename' },
+--   lualine_x = { 'location' },
+--   lualine_y = {},
+--   lualine_z = {}
+-- },
+-- tabline = {},
+-- winbar = {
+--   lualine_a = { navic.get_location }, -- Menampilkan nama file
+--   lualine_b = {},                     -- Menampilkan cabang git (opsional)
+--   lualine_c = {},
+--   lualine_x = {},
+--   lualine_y = {},
+--   lualine_z = {}
+-- },
+-- inactive_winbar = {},
+-- extensions = {}
+--}
+
+require('lspconfig').clangd.setup {
+  on_attach = on_attach,
+  capabilities = require('cmp_nvim_lsp').default_capabilities(),
+}
+
+require('lspconfig').intelephense.setup {
+  on_attach = on_attach,
+  capabilities = require('cmp_nvim_lsp').default_capabilities(),
+}
+
+require('lspconfig').lua_ls.setup {
+  on_attach = on_attach,
+  capabilities = require('cmp_nvim_lsp').default_capabilities(),
 }
