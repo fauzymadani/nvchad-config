@@ -97,7 +97,7 @@ end
 vim.o.winbar = " %{%v:lua.vim.fn.expand('%F')%}  %{%v:lua.require'nvim-navic'.get_location()%}"
 require("smear_cursor")
 -- lualine
-require("custom.configs.lualine")
+--require("custom.configs.lualine")
 --require("custom.configs.lualine-gaps")
 
 
