@@ -95,7 +95,7 @@ local function on_attach(client, bufnr)
   end
 end
 vim.o.winbar = " %{%v:lua.vim.fn.expand('%F')%}  %{%v:lua.require'nvim-navic'.get_location()%}"
-
+require("smear_cursor")
 -- lualine
 require("custom.configs.lualine")
 --require("custom.configs.lualine-gaps")
@@ -150,6 +150,8 @@ require("custom.configs.lualine")
 -- extensions = {}
 --}
 
+--code runner configuration
+-- nvim navic with lsp
 require('lspconfig').clangd.setup {
   on_attach = on_attach,
   capabilities = require('cmp_nvim_lsp').default_capabilities(),
@@ -161,6 +163,16 @@ require('lspconfig').intelephense.setup {
 }
 
 require('lspconfig').lua_ls.setup {
+  on_attach = on_attach,
+  capabilities = require('cmp_nvim_lsp').default_capabilities(),
+}
+
+require('lspconfig').taplo.setup {
+  on_attach = on_attach,
+  capabilities = require('cmp_nvim_lsp').default_capabilities(),
+}
+
+require('lspconfig').marksman.setup {
   on_attach = on_attach,
   capabilities = require('cmp_nvim_lsp').default_capabilities(),
 }
