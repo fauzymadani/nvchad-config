@@ -6,8 +6,8 @@
 local M = {}
 
 M.base46 = {
-  theme = "gatekeeper",
-
+  theme = "gruvbox",
+  --transparency = true,
   -- hl_override = {
   -- 	Comment = { italic = true },
   -- 	["@comment"] = { italic = true },
@@ -26,27 +26,16 @@ M.ui = {
   ident = {
     enable = true,
   },
-  hl_override = {
-    NvimTreeNormal = { bg = "#141b1e" },
-    NvimTreeNormalNC = { bg = "#141b1e" },
-    NvimTreeWinSeparator = { bg = "#141b1e", fg = "#141b1e" },
-    WinSeparator = { bg = "#141b1e" },
-    NavicSeparator = { bg = "#ffffff" },
-    BufferLineSeparator = { bg = "#141b1e" },
-    WhichKeySeparator = { bg = "#141b1e" },
-    BufferLineSeparatorVisible = { bg = "#141b1e" },
-    BufferLineSeparatorSelected = { bg = "#141b1e" },
-    LineNr = { bg = "#141b1e" },
-    NvimTreeOpenedFolderName = { bg = "#141b1e" },
-    DapUILineNumber = { bg = "#141b1e" },
-    BufferLineBackground = { bg = "#141b1e" },
-  },
+
   tabufline = {
     enabled = true,
     show_numbers = true,
   },
   cmp = {
-    style = "atom",
+    style = "atom_colored",
+    format_colors = {
+      tailwind = true,
+    },
   },
 }
 return M

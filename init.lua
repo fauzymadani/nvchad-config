@@ -176,3 +176,14 @@ require('lspconfig').marksman.setup {
   on_attach = on_attach,
   capabilities = require('cmp_nvim_lsp').default_capabilities(),
 }
+
+-- Tailwindcss config Not attach to blade file
+require('lspconfig').tailwindcss.setup({
+  filetypes = { "html", "css", "javascript", "typescript", "vue", "svelte" }, -- Daftar filetype
+  on_attach = function(client, bufnr)
+    local file_name = vim.api.nvim_buf_get_name(bufnr)
+    if file_name:match("%.blade%.php$") then
+      client.stop() -- Matikan LSP untuk file .blade.php
+    end
+  end,
+})
