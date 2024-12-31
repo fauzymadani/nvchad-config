@@ -1,4 +1,6 @@
 ### Nvchad config
+[![wakatime](https://wakatime.com/badge/user/a594c1fc-1df9-462d-a9b3-a9837e35da31/project/500c3bc2-497e-4cb0-9076-f2741fc43985.svg)](https://wakatime.com/badge/user/a594c1fc-1df9-462d-a9b3-a9837e35da31/project/500c3bc2-497e-4cb0-9076-f2741fc43985)
+
 this is my personal config for neovim with Nvchad
 
 ## Requirements
