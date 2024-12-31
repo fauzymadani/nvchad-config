@@ -11,6 +11,9 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
+--cursorline
+vim.opt.guicursor = "n-v-c-i:block"
+
 local lazy_config = require "configs.lazy"
 vim.opt.termguicolors = true
 
@@ -41,6 +44,10 @@ require("neo-tree").setup({
     --statusline = true
   }
 })
+
+--require('codewindow').setup()
+--require('codewindow').apply_default_keybinds()
+--require('mini.map')
 
 local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
 parser_config.blade = {
