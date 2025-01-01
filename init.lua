@@ -191,6 +191,10 @@ require('lspconfig').tailwindcss.setup({
     local file_name = vim.api.nvim_buf_get_name(bufnr)
     if file_name:match("%.blade%.php$") then
       client.stop() -- Matikan LSP untuk file .blade.php
+    else
+      if file_name:match("%.css") then
+        client.stop()
+      end
     end
   end,
 })
