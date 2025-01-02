@@ -194,7 +194,16 @@ require('lspconfig').tailwindcss.setup({
     else
       if file_name:match("%.css") then
         client.stop()
+      else
+        if file_name:match("%.rs") then
+          client.stop()
+        end
       end
     end
   end,
 })
+
+require('lspconfig').rust_analyzer.setup {
+  on_attach = on_attach,
+  capabilities = require('cmp_nvim_lsp').default_capabilities(),
+}
