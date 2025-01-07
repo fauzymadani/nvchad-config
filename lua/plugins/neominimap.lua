@@ -2,8 +2,8 @@ return ---@module "neominimap.config.meta"
 {
   "Isrothy/neominimap.nvim",
   version = "v3.*.*",
-  enabled = true,
-  lazy = false, -- NOTE: NO NEED to Lazy load
+  enabled = false, --NOTE: set to `true` to enable, no need to do require in init.lua
+  lazy = false,    -- NOTE: NO NEED to Lazy load
   -- Optional
   keys = {
     -- Global Minimap Controls

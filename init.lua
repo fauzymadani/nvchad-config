@@ -95,6 +95,7 @@ local function get_active_lsp()
   return table.concat(client_names, ", ")
 end
 
+--nvim navic configuration
 local navic = require('nvim-navic')
 local function on_attach(client, bufnr)
   if client.server_capabilities.documentSymbolProvider then
@@ -106,7 +107,7 @@ require("smear_cursor")
 -- lualine
 --require("custom.configs.lualine")
 --require("custom.configs.lualine-gaps")
-
+require("toggleterm").setup()
 
 --require('lualine').setup {
 --  options = {

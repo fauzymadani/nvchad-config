@@ -45,3 +45,9 @@ and `Mason` and press Ctrl-f for install the specific lsp, the required lsp is `
 
 ### Optional
 a formatter for C language, `clangd`(lsp for C).prettier for a better formatting. `ast-grep` for global multi-language support lsp.
+
+### Todo
+- [ ] Update Preview Photo
+- [x] configuring snacks nvim
+- [x] configuring edgy.nvim
+- [x] Adding neominimap (minimap for code)

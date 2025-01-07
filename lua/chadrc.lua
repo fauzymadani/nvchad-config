@@ -6,7 +6,7 @@
 local M = {}
 
 M.base46 = {
-  theme = "gruvbox",
+  theme = "onenord",
   --transparency = true,
   -- hl_override = {
   -- 	Comment = { italic = true },
@@ -17,24 +17,30 @@ M.nvdash = {
   load_on_startup = true
 }
 --TODO: add more plugins
+--BUG: diagnostics icon not changing
+M.stbufnr = function()
+  return vim.api.nvim_win_get_buf(vim.g.statusline_winid or 0)
+end
 
+M.is_activewin = function()
+  return vim.api.nvim_get_current_win() == vim.g.statusline_winid
+end
 
-M.diagnostics = function()
-  if not rawget(vim, "lsp") then
-    return ""
+M.file = function()
+  local icon = "󰈚"
+  local path = vim.api.nvim_buf_get_name(M.stbufnr())
+  local name = (path == "" and "Empty") or path:match "([^/\\]+)[/\\]*$"
+
+  if name ~= "Empty" then
+    local devicons_present, devicons = pcall(require, "nvim-web-devicons")
+
+    if devicons_present then
+      local ft_icon = devicons.get_icon(name)
+      icon = (ft_icon ~= nil and ft_icon) or icon
+    end
   end
 
-  local err = #vim.diagnostic.get(M.stbufnr(), { severity = vim.diagnostic.severity.ERROR })
-  local warn = #vim.diagnostic.get(M.stbufnr(), { severity = vim.diagnostic.severity.WARN })
-  local hints = #vim.diagnostic.get(M.stbufnr(), { severity = vim.diagnostic.severity.HINT })
-  local info = #vim.diagnostic.get(M.stbufnr(), { severity = vim.diagnostic.severity.INFO })
-
-  err = (err and err > 0) and ("%#St_lspError#" .. " " .. err .. " ") or ""
-  warn = (warn and warn > 0) and ("%#St_lspWarning#" .. " " .. warn .. " ") or ""
-  hints = (hints and hints > 0) and ("%#St_lspHints#" .. "󰛩 " .. hints .. " ") or ""
-  info = (info and info > 0) and ("%#St_lspInfo#" .. "󰋼 " .. info .. " ") or ""
-
-  return " " .. err .. warn .. hints .. info
+  return { icon, name }
 end
 
 M.git = function()
@@ -44,9 +50,9 @@ M.git = function()
 
   local git_status = vim.b[M.stbufnr()].gitsigns_status_dict
 
-  local added = (git_status.added and git_status.added ~= 0) and ("  " .. git_status.added) or ""
-  local changed = (git_status.changed and git_status.changed ~= 0) and ("  " .. git_status.changed) or ""
-  local removed = (git_status.removed and git_status.removed ~= 0) and ("  " .. git_status.removed) or ""
+  local added = (git_status.added and git_status.added ~= 0) and ("  " .. git_status.added) or ""
+  local changed = (git_status.changed and git_status.changed ~= 0) and ("  " .. git_status.changed) or ""
+  local removed = (git_status.removed and git_status.removed ~= 0) and ("  " .. git_status.removed) or ""
   local branch_name = " " .. git_status.head
 
   return " " .. branch_name .. added .. changed .. removed
@@ -57,6 +63,7 @@ M.ui = {
   statusline = {
     theme = "vscode_colored",
     separator_style = "default",
+    order = { "mode", "file", "git", "%=", "lsp_msg", "%=", "diagnostics", "lsp", "cursor", "cwd" },
   },
   ident = {
     enable = true,
@@ -67,10 +74,13 @@ M.ui = {
     show_numbers = true,
   },
   cmp = {
-    style = "atom_colored",
+    lspkind_text = true,
+    style = "default",
     format_colors = {
       tailwind = true,
     },
   },
+
+  telescope = { style = "bordered" },
 }
 return M

@@ -11,8 +11,11 @@ vim.keymap.set("n", "<leader>+h", ":resize +5<CR>")
 vim.keymap.set("n", "<leader>-h", ":resize -5<CR>")
 --vim.keymap.set("n", "<leader>+gs", "<cmd>Gitsigns toggle_current_line_blame<CR>")
 vim.keymap.set("n", "<leader>+gs", ":Gitsigns toggle_current_line_blame<CR>")
--- Key mapping untuk membuka Neo-tree
-vim.keymap.set("n", "<Space>nt", ":Neotree toggle<CR>", { desc = "Toggle Neo-tree" })
+vim.keymap.set("n", "<Space>nt", ":Neotree toggle<CR>", { desc = "Toggle Neo-tree", silent = true })
+vim.keymap.set("n", "<Space>nx", ":Neotree close<CR>", { desc = "Close Neo-tree", silent = true })
+vim.keymap.set("n", "<Space>nv", ":Neotree focus<CR>", { desc = "Focus Neo-tree", silent = true })
+
+vim.keymap.set("n", "<Space>tt", ":ToggleTerm<CR>", { desc = "Open Toggle Terminal", silent = true })
 
 --mappings for code runner
 vim.keymap.set('n', '<leader>r', ':RunCode<CR>', { noremap = true, silent = false })
