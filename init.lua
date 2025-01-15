@@ -198,6 +198,10 @@ require('lspconfig').tailwindcss.setup({
       else
         if file_name:match("%.rs") then
           client.stop()
+        else
+          if file_name:match("%.md") then
+            client.stop()
+          end
         end
       end
     end
@@ -205,6 +209,16 @@ require('lspconfig').tailwindcss.setup({
 })
 
 require('lspconfig').rust_analyzer.setup {
+  on_attach = on_attach,
+  capabilities = require('cmp_nvim_lsp').default_capabilities(),
+}
+
+require('lspconfig').ts_ls.setup {
+  on_attach = on_attach,
+  capabilities = require('cmp_nvim_lsp').default_capabilities(),
+}
+
+require('lspconfig').stimulus_ls.setup {
   on_attach = on_attach,
   capabilities = require('cmp_nvim_lsp').default_capabilities(),
 }

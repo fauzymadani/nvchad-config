@@ -248,13 +248,6 @@ return {
     end,
   },
   {
-    "lukas-reineke/indent-blankline.nvim",
-    main = "ibl",
-    ---@module "ibl"
-    ---@type ibl.config
-    opts = {},
-  },
-  {
     "folke/snacks.nvim",
     priority = 1000,
     lazy = false,
@@ -318,7 +311,7 @@ return {
         example = "pokemon",
       },
       indent = {
-        enabled = true,
+        enabled = false,
       },
       input = { enabled = true },
       notifier = {
@@ -800,5 +793,5 @@ return {
       "MunifTanjim/nui.nvim",
       "rcarriga/nvim-notify",
     }
-  }
+  },
 }
